@@ -192,6 +192,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
 
 [[package]]
+name = "hypr_steam_watcher"
+version = "0.1.0"
+dependencies = [
+ "hyprland",
+ "procfs",
+]
+
+[[package]]
 name = "hyprland"
 version = "0.4.0-beta.3"
 source = "git+https://github.com/hyprland-community/hyprland-rs?branch=master#24b2855fe85d390520c95767f9b08845f4c8e786"
@@ -480,14 +488,6 @@ checksum = "86f4aa3ad99f2088c990dfa82d367e19cb29268ed67c574d10d0a4bfe71f07e0"
 dependencies = [
  "libc",
  "windows-sys 0.60.2",
-]
-
-[[package]]
-name = "steam_watcher"
-version = "0.1.0"
-dependencies = [
- "hyprland",
- "procfs",
 ]
 
 [[package]]
