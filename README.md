@@ -68,7 +68,7 @@ You can also run more complex expressions like `hypr_steam_watcher bash -c 'slee
 
 The callback receives:
 
-<callback> [callback-arguments...] <pid> <steam_app_id>
+`[callback-arguments...] <pid> <steam_app_id>`
 
 ## Use Cases
 - Disable blur or transparency for games
