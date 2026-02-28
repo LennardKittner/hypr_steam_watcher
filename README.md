@@ -50,7 +50,7 @@ Automatically tag newly launched Steam games in Hyprland.
 Usage: hypr_steam_watcher [callback] [callback-arguments]...
 
 Arguments:
-  [callback]               A callback that will be called when a new window of a steam game appears
+  [callback]               A callback that will be called when a new window of a steam game appears.
   [callback-arguments]...  Arguments for the callback. The PID and Steam app ID will be appended to the arguments.
 
 Options:
