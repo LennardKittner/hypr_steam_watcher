@@ -40,7 +40,7 @@ cd hypr_steam_watcher
 cargo build --release
 sudo cp target/release/hypr_steam_watcher /usr/bin/
 ```
-Then add `exec-once = hypr_steam_watcher` to your `hyprland.conf`
+Then add `exec-once = hypr_steam_watcher` to your `hyprland.conf` to start it automatically.
 
 ## Usage
 ```
