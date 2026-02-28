@@ -4,6 +4,7 @@ version = "1.0.0"
 edition = "2024"
 
 [dependencies]
+clap = "4.5.60"
 # hyprland = "0.3.13"
 hyprland = { git = "https://github.com/hyprland-community/hyprland-rs", branch = "master" }
 procfs = "0.18.0"

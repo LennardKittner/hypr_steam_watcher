@@ -7,22 +7,39 @@ use hyprland::{
     event_listener::{EventListener, WindowOpenEvent},
     shared::HyprData,
 };
+
+use clap::Arg;
+use clap::Command as ClapCommand;
 use procfs::process::Process;
 use std::env;
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
+    let matches = ClapCommand::new(env!("CARGO_PKG_NAME"))
+        .version(env!("CARGO_PKG_VERSION"))
+        .author(env!("CARGO_PKG_AUTHORS"))
+        .about("Automatically tag newly launched Steam games in Hyprland.")
+        .arg(
+            Arg::new("callback")
+                .required(false)
+                .help("A callback that will be called when a new window of a steam game appears")
+                .index(1)
+        )
+        .arg(
+            Arg::new("callback-arguments")
+                .required(false)
+                .index(2)
+                .num_args(1..)
+                .help("Arguments for the callback. The PID and Steam app ID will be appended to the arguments.")
+                .allow_hyphen_values(true)
+                .value_parser(clap::value_parser!(String)),
+        ).get_matches();
 
-    let script_path = if args.len() > 1 {
-        Some(args[1].clone())
-    } else {
-        None
-    };
-    let script_args = if args.len() > 2 {
-        args[2..].to_vec()
-    } else {
-        Vec::new()
-    };
+    let callback = matches.get_one::<String>("callback").cloned();
+    let callback_args: Vec<String> = matches
+        .get_many::<String>("callback-arguments")
+        .unwrap_or_default()
+        .cloned()
+        .collect();
 
     let mut listener = EventListener::new();
     listener.add_window_opened_handler(move |event| {
@@ -35,8 +52,8 @@ fn main() {
                 true
             }
             Ok(GameResult::Game { pid, app_id }) => {
-                if let Some(script_path) = &script_path {
-                    let mut new_args = script_args.clone();
+                if let Some(script_path) = &callback {
+                    let mut new_args = callback_args.clone();
                     new_args.push(pid.to_string());
                     new_args.push(app_id);
                     let mut child = Command::new(script_path).args(&new_args).spawn().unwrap();
