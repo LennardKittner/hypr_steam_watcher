@@ -21,7 +21,7 @@ fn main() {
         .arg(
             Arg::new("callback")
                 .required(false)
-                .help("A callback that will be called when a new window of a steam game appears")
+                .help("A callback that will be called when a new window of a steam game appears.")
                 .index(1)
         )
         .arg(
