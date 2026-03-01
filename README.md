@@ -1,6 +1,7 @@
 # hypr_steam_watcher
 [![AUR Version](https://img.shields.io/aur/version/hypr_steam_watcher-git)](https://aur.archlinux.org/packages/hypr_steam_watcher-git)
 [![GitHub Release](https://img.shields.io/github/v/release/LennardKittner/hypr_steam_watcher)](https://github.com/LennardKittner/hypr_steam_watcher/releases)
+
 Automatically tags newly launched Steam games in Hyprland so you can target or exclude them in window rules without manual configuration.
 
 <p align="center">
