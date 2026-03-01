@@ -49,3 +49,4 @@ jobs:
             commit_message: Automatic update to latest
             updpkgsums: false
             allow_empty_commits: false
+            ssh_keyscan_types: rsa,ecdsa,ed25519
