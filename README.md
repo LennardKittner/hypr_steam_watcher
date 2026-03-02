@@ -13,10 +13,13 @@ Automatically tags newly launched Steam games in Hyprland so you can target or e
 `hypr_steam_watcher` listens for newly created windows in Hyprland and automatically tags Steam game windows with `steam_game` and `steam_app_id_<game-id>`.
 This allows you to exclude Steam games from certain window rules or define specific window rules that only apply to Steam games.
 ```
-windowrule = match:class .*, match:tag negative:steam_game, opacity 0.9 # everything except steam games is transparent
-windowrule = match:tag steam_game,opacity no_blur                       # disable blur for steam games
-windowrule = match:class .*, match:tag steam_app_id_12345, workspace 3  # launch window for the steam game with app ID 12345 on workspace 3
+windowrule = match:tag negative:steam_game, opacity 0.9     # everything except steam games is transparent
+windowrule = match:tag steam_game,opacity no_blur           # disable blur for steam games
+windowrule = match:tag steam_game, render_unfocused true    # Forces the window to think it’s being rendered when it’s not visible
+windowrule = match:tag steam_app_id_447530, immediate true  # Forces the game with app ID 447530 to allow tearing 
+windowrule = match:tag steam_game, idle_inhibit always      # Apps like hypridle will not fire
 ```
+⚠️ Since the tag is applied after the game window appears, only [dynamic effects](https://wiki.hypr.land/Configuring/Window-Rules/#dynamic-effects) can be used.
 
 ## Compatibility
 The app works with both native Linux and Proton games.
