@@ -32,9 +32,16 @@ The app works with both native Linux and Proton games.
 You can download a prebuilt version from the [releases](https://github.com/LennardKittner/hypr_steam_watcher/releases).
 Then add `exec-once = hypr_steam_watcher` to your `hyprland.conf` to start it automatically.
 
+### AUR
+Install it via the AUR:
+```fish
+ yay -S hyperheadset-git
+```
+Then add `exec-once = hypr_steam_watcher` to your `hyprland.conf` to start it automatically.
+
 ### Build from Source
 You can build the project from source using cargo:
-```bash
+```fish
 git clone https://github.com/LennardKittner/hypr_steam_watcher.git
 cd hypr_steam_watcher
 cargo build --release
