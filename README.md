@@ -5,14 +5,14 @@
 Automatically tags newly launched Steam games in Hyprland so you can target or exclude them in window rules without manual configuration.
 
 <p align="center">
-  <img src="screenshot/image.png" width="700">
+  <img src="https://raw.githubusercontent.com/LennardKittner/hypr_steam_watcher/main/screenshot/image.png" width="700">
   <br>
   <em>VA-11 Hall-A tagged with steam_game and steam_app_id_447530</em>
 </p>
 
 `hypr_steam_watcher` listens for newly created windows in Hyprland and automatically tags Steam game windows with `steam_game` and `steam_app_id_<game-id>`.
 This allows you to exclude Steam games from certain window rules or define specific window rules that only apply to Steam games.
-```
+```text
 windowrule = match:tag negative:steam_game, opacity 0.9     # Everything except steam games is transparent
 windowrule = match:tag steam_game, opacity no_blur          # Disable blur for steam games
 windowrule = match:tag steam_game, render_unfocused true    # Forces the window to think it’s being rendered when it’s not visible
@@ -53,7 +53,7 @@ sudo cp target/release/hypr_steam_watcher /usr/bin/
 Then add `exec-once = hypr_steam_watcher` to your `hyprland.conf` to start it automatically.
 
 ## Usage
-```
+```fish
 hypr_steam_watcher --help
 Automatically tag newly launched Steam games in Hyprland.
 
@@ -79,41 +79,41 @@ Running `hypr_steam_watcher` without any arguments will automatically tag any St
 You can optionally run a command whenever a Steam game window opens or closes.
 
 The simplest is to pass a callback directly:
-```
+```fish
 hypr_steam_watcher echo game:
 ```
 This prints:
-```
+```fish
 game: <pid> <steam_app_id> 
 ```
 each time a steam game window opens.
 
 You can also execute script:
-```
+```fish
 hypr_steam_watcher ./activate_game_mod.sh
 ```
 Callbacks are executed asynchronously so they will not block the watcher.
 
 #### More Complex Callbacks
 More complex callbacks can be executed using `bash -c`:
-```
+```fish
 hypr_steam_watcher bash -c 'sleep 2 && echo game: "$0 $1"'
 ```
 This prints the game information after a two-second delay
 
 #### Open / Close Callbacks
 To register a callback on window closure, use the dedicated options:
-```
+```fish
 hypr_steam_watcher --open-callback echo open: \; --close-callback echo close:
 ```
 Output example:
-```
+```fish
 open: <pid> <steam_app_id>
 close: <pid> <steam_app_id>
 ```
 
 More complex callbacks are also possible:
-```
+```fish
 hypr_steam_watcher \
   --open-callback bash -c 'sleep 2 && echo open: "$0 $1"' \; \
   --close-callback  bash -c 'sleep 2 && echo close: "$0 $1"'

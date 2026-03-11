@@ -2,6 +2,14 @@
 name = "hypr_steam_watcher"
 version = "1.1.0"
 edition = "2024"
+authors = ["Lennard Kittner"]
+description = "Automatically tags newly launched Steam games in Hyprland."
+readme = "README.md"
+repository = "https://github.com/LennardKittner/hypr_steam_watcher"
+homepage = "https://github.com/LennardKittner/hypr_steam_watcher"
+license = "MIT"
+keywords = ["steam", "hyprland"]
+categories = ["command-line-utilities"]
 
 [dependencies]
 clap = "4.5.60"
