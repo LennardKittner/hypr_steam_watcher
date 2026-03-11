@@ -100,16 +100,13 @@ fn main() {
         let mut new_args = callback_args.clone();
         new_args.push("<pid>".to_string());
         new_args.push("<steam_app_id>".to_string());
-        println!("On game launch calling: {callback} {}", new_args.join(" "));
+        println!("On game launch: {callback} {}", new_args.join(" "));
     }
     if let Some(close_callback) = &close_callback {
         let mut new_args = close_callback_args.clone();
         new_args.push("<pid>".to_string());
         new_args.push("<steam_app_id>".to_string());
-        println!(
-            "On game close calling: {close_callback} {}",
-            new_args.join(" ")
-        );
+        println!("On game close: {close_callback} {}", new_args.join(" "));
     }
 
     let mut listener = EventListener::new();
