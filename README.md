@@ -53,7 +53,7 @@ sudo cp target/release/hypr_steam_watcher /usr/bin/
 Then add `exec-once = hypr_steam_watcher` to your `hyprland.conf` to start it automatically.
 
 ## Usage
-```fish
+```text
 hypr_steam_watcher --help
 Automatically tag newly launched Steam games in Hyprland.
 
@@ -107,7 +107,7 @@ To register a callback on window closure, use the dedicated options:
 hypr_steam_watcher --open-callback echo open: \; --close-callback echo close:
 ```
 Output example:
-```fish
+```text
 open: <pid> <steam_app_id>
 close: <pid> <steam_app_id>
 ```
