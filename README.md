@@ -57,28 +57,78 @@ Then add `exec-once = hypr_steam_watcher` to your `hyprland.conf` to start it au
 hypr_steam_watcher --help
 Automatically tag newly launched Steam games in Hyprland.
 
-Usage: hypr_steam_watcher [callback] [callback-arguments]...
+Usage: hypr_steam_watcher [OPTIONS] [callback] [callback-arguments]...
 
 Arguments:
   [callback]               A callback that will be called when a new window of a steam game appears.
   [callback-arguments]...  Arguments for the callback. The PID and Steam app ID will be appended to the arguments.
 
 Options:
-  -h, --help     Print help
-  -V, --version  Print version
+      --open-callback <open-callback>...
+          A callback that will be called when a new window of a steam game appears. The PID and Steam app ID will be appended to the arguments.
+      --close-callback <close-callback>...
+          A callback that will be called when a new window of a steam game closes. The PID and Steam app ID will be appended to the arguments.
+  -h, --help
+          Print help
+  -V, --version
+          Print version
 ```
-Running `hypr_steam_watcher` without any arguments will tag any Steam games launched while this app is running.
+Running `hypr_steam_watcher` without any arguments will automatically tag any Steam game windows launched while the watcher is running.
 
-It is also possible to provide a callback, e.g., `hypr_steam_watcher echo game:` or `hypr_steam_watcher ./activate_game_mod.sh`.
-hypr_steam_watcher will call the callback in a non-blocking way whenever a new Steam game starts and appends the PID and Steam app ID of the newly executed game to the parameters for the callback.
-Thus, `hypr_steam_watcher echo game:` will print `game: <pid> <steam_app_id>` once to the console every time a new Steam game is launched.
-You can also run more complex expressions like `hypr_steam_watcher bash -c 'sleep 2 && echo game: "$0 $1"'` this will also print `game: <pid> <steam_app_id>` after a two-second delay.
+### Callbacks
+You can optionally run a command whenever a Steam game window opens or closes.
 
-### Callback Arguments
+The simplest is to pass a callback directly:
+```
+hypr_steam_watcher echo game:
+```
+This prints:
+```
+game: <pid> <steam_app_id> 
+```
+each time a steam game window opens.
+
+You can also execute script:
+```
+hypr_steam_watcher ./activate_game_mod.sh
+```
+Callbacks are executed asynchronously so they will not block the watcher.
+
+#### More Complex Callbacks
+More complex callbacks can be executed using `bash -c`:
+```
+hypr_steam_watcher bash -c 'sleep 2 && echo game: "$0 $1"'
+```
+This prints the game information after a two-second delay
+
+#### Open / Close Callbacks
+To register a callback on window closure, use the dedicated options:
+```
+hypr_steam_watcher --open-callback echo open: \; --close-callback echo close:
+```
+Output example:
+```
+open: <pid> <steam_app_id>
+close: <pid> <steam_app_id>
+```
+
+More complex callbacks are also possible:
+```
+hypr_steam_watcher \
+  --open-callback bash -c 'sleep 2 && echo open: "$0 $1"' \; \
+  --close-callback  bash -c 'sleep 2 && echo close: "$0 $1"'
+```
+You may specify only an open callback, only a close callback, or both.
+
+#### Callback Arguments
 
 The callback receives:
 
 `[callback-arguments...] <pid> <steam_app_id>`
+
+Where:
+- `pid`: process ID of the game
+- `steam_app_id`: Steam application ID of the game
 
 ## Use Cases
 - Disable blur or transparency for games
@@ -87,11 +137,18 @@ The callback receives:
 - Apply per-game rules using Steam App IDs
 
 ## How it works
+**On open**
 - Uses the hyprland crate to detect new windows
 - Gets the PID
 - Checks whether the environment of the process contains `SteamAppId`
 - Uses the hyprland crate to tag the window
+- Save the window address to detect if the game is closed
 - Executes the callback (if provided)
+
+**On close**
+- Uses the hyprland crate to detect closing windows
+- check if the window address is know
+- if so execute the callback (if provided)
 
 ## Troubleshooting 
 - Ensure hypr_steam_watcher is running
