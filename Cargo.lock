@@ -286,7 +286,7 @@ dependencies = [
 [[package]]
 name = "hyprland"
 version = "0.4.0-beta.3"
-source = "git+https://github.com/hyprland-community/hyprland-rs?branch=master#24b2855fe85d390520c95767f9b08845f4c8e786"
+source = "git+https://github.com/hyprland-community/hyprland-rs?branch=master#d678c9dde25167aa5a089882213db2fb36147034"
 dependencies = [
  "async-stream",
  "derive_more",
@@ -303,7 +303,7 @@ dependencies = [
 [[package]]
 name = "hyprland-macros"
 version = "0.4.0-beta.3"
-source = "git+https://github.com/hyprland-community/hyprland-rs?branch=master#24b2855fe85d390520c95767f9b08845f4c8e786"
+source = "git+https://github.com/hyprland-community/hyprland-rs?branch=master#d678c9dde25167aa5a089882213db2fb36147034"
 dependencies = [
  "proc-macro2",
  "quote",
